@@ -227,14 +227,16 @@ export const Hero: React.FC<HeroProps> = ({ onExploreWork, onStartProject }) => 
           variants={fadeUpVariants}
           className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
         >
-          {/* Primary CTA */}
-          <button
-            onClick={onStartProject}
+          {/* Primary CTA: Start a project -> Opens WhatsApp */}
+          <a
+            href={PERSONAL_INFO.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-full sm:w-auto group relative px-8 py-4 rounded-xl font-display font-bold text-xs sm:text-sm tracking-wider uppercase bg-[#D2FF3A] text-black hover:bg-[#bef720] transition-all duration-200 shadow-[0_0_30px_rgba(210,255,58,0.25)] hover:shadow-[0_0_40px_rgba(210,255,58,0.4)] flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D2FF3A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#09090c]"
           >
-            <span>LET'S BUILD SOMETHING</span>
+            <span>Start a project</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </button>
+          </a>
 
           {/* Secondary CTA with frosted glassmorphism */}
           <button

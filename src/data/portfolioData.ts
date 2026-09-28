@@ -11,6 +11,7 @@ export const PERSONAL_INFO = {
   avatar: 'https://res.cloudinary.com/bqokwnwq/image/upload/f_auto,q_auto/WhatsApp_Image_2026-09-28_at_11.39.28_AM',
   location: 'Lagos, Nigeria & Remote Worldwide',
   email: 'oluwasegunayoola91@gmail.com',
+  whatsapp: 'https://wa.me/2348104320603',
   github: 'https://github.com',
   twitter: 'https://twitter.com',
   linkedin: 'https://linkedin.com',

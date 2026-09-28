@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { PERSONAL_INFO } from '../data/portfolioData';
 
 interface NavbarProps {
   activeSection: string;
@@ -90,13 +91,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
 
           {/* Zone 3: Primary action + Mobile Toggle */}
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => handleNavClick('contact')}
+            <a
+              href={PERSONAL_INFO.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-[#D2FF3A] text-black hover:bg-[#bef720] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D2FF3A] cursor-pointer"
             >
-              <span>Build Together</span>
+              <span>Let's build</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
-            </button>
+            </a>
 
             {/* Mobile Hamburger Toggle */}
             <button
@@ -132,13 +135,16 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
                 );
               })}
 
-              <button
-                onClick={() => handleNavClick('contact')}
+              <a
+                href={PERSONAL_INFO.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
                 className="mt-3 w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#D2FF3A] text-black hover:bg-[#bef720] transition-colors"
               >
-                <span>LET'S BUILD SOMETHING</span>
+                <span>LET'S BUILD</span>
                 <ArrowUpRight className="w-4 h-4" />
-              </button>
+              </a>
             </nav>
           </div>
         </div>

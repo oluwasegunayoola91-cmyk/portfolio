@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Copy, Check, ArrowRight, Github, Twitter, Linkedin, Send, Sparkles } from 'lucide-react';
+import { Mail, Copy, Check, ArrowRight, Github, Twitter, Linkedin, Send, Sparkles, MessageCircle } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 interface ContactSectionProps {
@@ -149,6 +149,32 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedServiceP
                 )}
               </div>
 
+              {/* Direct Instant Chat: WhatsApp */}
+              <div>
+                <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-1">
+                  Instant Chat
+                </span>
+                <a
+                  href={PERSONAL_INFO.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between gap-3 p-3 rounded-xl bg-white/[0.03] hover:bg-[#D2FF3A]/10 border border-white/5 hover:border-[#D2FF3A]/30 transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D2FF3A]"
+                >
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-7 h-7 rounded-lg bg-[#D2FF3A]/10 border border-[#D2FF3A]/20 text-[#D2FF3A] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <MessageCircle className="w-3.5 h-3.5" />
+                    </div>
+                    <span className="text-xs sm:text-sm font-medium text-zinc-200 group-hover:text-white transition-colors">
+                      WhatsApp me
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono text-[#D2FF3A] flex items-center gap-1 shrink-0 font-semibold group-hover:translate-x-0.5 transition-transform">
+                    <span>Chat now</span>
+                    <span>→</span>
+                  </span>
+                </a>
+              </div>
+
               {/* Availability Notice */}
               <div className="p-4 rounded-xl bg-[#181820] border border-white/5 space-y-2">
                 <div className="flex items-center gap-2">
@@ -229,17 +255,27 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedServiceP
                 </p>
 
                 <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-                  <button
-                    onClick={handleMailtoDirect}
+                  <a
+                    href={PERSONAL_INFO.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#D2FF3A] text-black hover:bg-[#bef720] transition-colors flex items-center gap-2 cursor-pointer"
                   >
-                    <span>Also Open in Email App</span>
-                    <Mail className="w-3.5 h-3.5" />
+                    <span>Chat on WhatsApp</span>
+                    <MessageCircle className="w-3.5 h-3.5" />
+                  </a>
+
+                  <button
+                    onClick={handleMailtoDirect}
+                    className="px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-white/5 hover:bg-white/10 text-white transition-colors flex items-center gap-2 cursor-pointer border border-white/10"
+                  >
+                    <span>Open in Email App</span>
+                    <Mail className="w-3.5 h-3.5 text-zinc-400" />
                   </button>
 
                   <button
                     onClick={() => setIsSubmitted(false)}
-                    className="px-5 py-2.5 rounded-xl text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-white transition-colors"
+                    className="px-4 py-2.5 rounded-xl text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-white transition-colors"
                   >
                     Submit Another Idea
                   </button>
@@ -387,21 +423,41 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedServiceP
                   />
                 </div>
 
-                {/* Submit Action */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full group px-8 py-4 rounded-xl font-display font-bold text-xs sm:text-sm tracking-wider uppercase bg-[#D2FF3A] text-black hover:bg-[#bef720] transition-all duration-200 shadow-[0_0_30px_rgba(210,255,58,0.2)] hover:shadow-[0_0_40px_rgba(210,255,58,0.35)] flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D2FF3A]"
-                >
-                  {isSubmitting ? (
-                    <span>Processing...</span>
-                  ) : (
-                    <>
-                      <span>START A PROJECT</span>
-                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                    </>
-                  )}
-                </button>
+                {/* Submit Action & WhatsApp CTA */}
+                <div className="space-y-3 pt-1">
+                  <a
+                    href={PERSONAL_INFO.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      // Trigger form submission payload asynchronously if fields are populated
+                      if (formData.name && formData.email) {
+                        try {
+                          const encode = (data: Record<string, string>) => {
+                            return Object.keys(data)
+                              .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+                              .join('&');
+                          };
+                          fetch('/', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: encode({ 'form-name': 'project-inquiry', ...formData }),
+                          });
+                        } catch {
+                          // Silent
+                        }
+                      }
+                    }}
+                    className="w-full group px-8 py-4 rounded-xl font-display font-bold text-xs sm:text-sm tracking-wider uppercase bg-[#D2FF3A] text-black hover:bg-[#bef720] transition-all duration-200 shadow-[0_0_30px_rgba(210,255,58,0.2)] hover:shadow-[0_0_40px_rgba(210,255,58,0.35)] flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D2FF3A]"
+                  >
+                    <span>START A PROJECT</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+
+                  <p className="text-[11px] font-mono text-zinc-500 text-center">
+                    Opens direct on WhatsApp for an immediate reply & architectural discussion.
+                  </p>
+                </div>
               </form>
             )}
           </div>
